@@ -13,9 +13,9 @@ import {
 } from '@angular/core';
 import { FilterComponent } from './data-table-filter-component/data-table-filter.component';
 import { MatSortHeader } from '@angular/material/sort';
-import { DataTableFilter } from './data-table-filter.directive';
 import { Subscription } from 'rxjs';
 import { DataTableFilterOption } from './data-table-filter-options';
+import { DataTableFilterService } from './service/data-table-filter.service';
 
 @Directive({
   selector: 'th[mad-filter-header]',
@@ -43,7 +43,8 @@ export class DataTableFilterHeader implements OnInit, AfterViewInit, OnDestroy {
     private element: ElementRef,
     private viewContainerRef: ViewContainerRef,
     private renderer: Renderer2,
-    @Optional() private madFilter: DataTableFilter,
+    // @Optional() private madFilter: DataTableFilter,
+    @Optional() private filterService: DataTableFilterService,
     @Optional() private matSortHeader: MatSortHeader,
   ) {}
 
@@ -63,21 +64,24 @@ export class DataTableFilterHeader implements OnInit, AfterViewInit, OnDestroy {
       this.findArrow(this.element.nativeElement)!.addEventListener('click', reference);
     }
 
-    if (!!this.madFilter) {
-      this.madFilter.register(this);
+    if (!!this.filterService) {
+      this.filterService.register(this);
     }
   }
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
-    this.madFilter.unregister(this);
+    this.filterService.unregister(this);
   }
 
   observeFilterComponent() {
     this._subscription.add(
       this._filterComponent.instance.filterValueChange.subscribe((value) => {
         this._filterValue = value;
-        this.madFilter.changeFilter();
+        if (!!this.filterService) {
+          this.filterService.changeFilter();
+        }
+        // this.madFilter.changeFilter();
       }),
     );
   }

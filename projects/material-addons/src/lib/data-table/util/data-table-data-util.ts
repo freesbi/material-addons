@@ -1,5 +1,5 @@
 import { DataTableRow } from '../configuration/data-table-row';
-import { DataTableColumn } from '../data-table';
+import {DataTableColumn} from '../configuration/data-table-column';
 import { v4 as uuidV4 } from 'uuid';
 
 export class DataTableDataUtil {

@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { DataTableTemplateCellDefinition } from './data-table-template-cell-definition.directive';
+import { CellDefinable } from './interface/cell-definable';
 
 @Directive({
   selector: '[madColumnDef]',
@@ -9,9 +9,9 @@ export class DataTableTemplateColumnDefinition {
   @Input()
   madColumnDef: string;
 
-  cellDef: DataTableTemplateCellDefinition | null;
+  cellDef: CellDefinable | null;
 
-  public register(cellDef: DataTableTemplateCellDefinition) {
+  public register(cellDef: CellDefinable) {
     this.cellDef = cellDef;
   }
 

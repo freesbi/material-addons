@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { DataTableTemplateExpandableCellDefinition } from './data-table-template-expandable-cell-definition.directive';
+import {ExpandableCellDefinable} from './interface/expandable-cell-definable';
 
 @Directive({
   selector: '[madExpandableColumnDef]',
@@ -9,9 +9,9 @@ export class DataTableTemplateExpandableColumnDefinition {
   @Input()
   madExpandableColumnDef: string;
 
-  cellDef: DataTableTemplateExpandableCellDefinition | null;
+  cellDef: ExpandableCellDefinable | null;
 
-  public register(cellDef: DataTableTemplateExpandableCellDefinition) {
+  public register(cellDef: ExpandableCellDefinable) {
     this.cellDef = cellDef;
   }
 

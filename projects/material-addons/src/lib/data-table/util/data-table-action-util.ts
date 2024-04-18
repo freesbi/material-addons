@@ -1,4 +1,5 @@
-import { DataTableAction, DataTableSelectionMode } from '../data-table';
+import {DataTableAction} from '../configuration/data-table-action';
+import {DataTableSelectionMode} from '../configuration/data-table-selection-mode';
 
 export class DataTableActionUtil {
   public static getDisplayActions(

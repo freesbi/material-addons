@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, Output } from '@angular/core';
-import { DataTableFilterHeader } from './data-table-filter-header.directive';
 import { DataTableFilterObject } from './data-table-filter-object';
+import { DataTableFilterService } from './service/data-table-filter.service';
 
 @Directive({
   selector: '[madFilter]',
@@ -9,34 +9,42 @@ import { DataTableFilterObject } from './data-table-filter-object';
 export class DataTableFilter {
   @Output('madFilterChange') readonly filterChange = new EventEmitter<DataTableFilterObject>();
 
-  filterables = new Map<string, DataTableFilterHeader>();
-
-  register(filterable: DataTableFilterHeader) {
-    this.filterables.set(filterable.id, filterable);
+  constructor(private filterService: DataTableFilterService) {
+    this.filterService.filterChange$.subscribe((value) => {
+      this.filterChange.emit(value);
+    });
   }
 
-  unregister(filterable: DataTableFilterHeader) {
-    this.filterables.delete(filterable.id);
-  }
+  // filterables = new Map<string, DataTableFilterHeader>();
 
-  changeFilter() {
-    this.filterChange.emit(this.createFilter());
-  }
+  // register(filterable: DataTableFilterHeader) {
+  //   this.filterables.set(filterable.id, filterable);
+  // }
+  //
+  // unregister(filterable: DataTableFilterHeader) {
+  //   this.filterables.delete(filterable.id);
+  // }
+
+  // changeFilter() {
+  //   this.filterChange.emit(this.createFilter());
+  // }
 
   updateFilterables(dataTableFilterObject: DataTableFilterObject | undefined) {
     if (!!dataTableFilterObject) {
       Object.entries(dataTableFilterObject).forEach(([key, value]) => {
-        const filterable = this.filterables.get(key);
+        const filterable = this.filterService.getFilterable(key);
         if (!!filterable) {
           filterable.filterValue = value;
         }
       });
     } else {
-      this.filterables.forEach((value) => (value.filterValue = null));
+      // this.filterables.forEach((value) => (value.filterValue = null));
+      this.filterService.resetFilterValues();
     }
   }
 
-  private createFilter(): DataTableFilterObject {
-    return Array.from(this.filterables.values()).reduce((result, current) => ({ ...result, [current.id]: current.filterValue }), {});
-  }
+  // private createFilter(): DataTableFilterObject {
+  // return this.filterService.filterValues;
+  // return Array.from(this.filterables.values()).reduce((result, current) => ({ ...result, [current.id]: current.filterValue }), {});
+  // }
 }
