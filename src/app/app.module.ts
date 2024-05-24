@@ -135,6 +135,7 @@ import {
   TableModule,
   ThrottleClickModule,
   ToolbarModule,
+  BreadcrumbComponent
 } from 'material-addons';
 import {
   DataTableColumnFilterComponent
@@ -288,6 +289,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ExampleHeaderComponent,
     ExamplePageTitleComponent,
     FullPageLayoutsRoutingModule,
+    BreadcrumbComponent
   ],
   providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline', subscriptSizing: 'dynamic'}}],
   bootstrap: [AppComponent],

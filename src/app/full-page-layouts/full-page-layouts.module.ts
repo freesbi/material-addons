@@ -34,7 +34,8 @@ import {
   SidebarModule,
   TableModule,
   ThrottleClickModule,
-  SidebarLayoutComponent
+  SidebarLayoutComponent,
+  BreadcrumbComponent
 } from 'material-addons';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ContentPanelModule } from '../../../projects/material-addons/src/lib/layout/content-panel/content-panel.module';
@@ -86,6 +87,7 @@ import { ExamplePageTwoComponent } from './example-page-two/example-page-two.com
     FlowbarModule,
     SidebarModule,
     SidebarLayoutComponent,
+    BreadcrumbComponent
   ],
   declarations: [
     FullPageLayoutsComponent,
