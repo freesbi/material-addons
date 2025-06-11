@@ -3,8 +3,8 @@ import { Component, HostBinding } from '@angular/core';
 @Component({
   selector: 'mad-button-group',
   template: '<ng-content></ng-content>',
-  standalone: true,
+  host: {
+    class: 'mad-button-group',
+  },
 })
-export class MadButtonGroupComponent {
-  @HostBinding('class.mad-button-group') setClass = true;
-}
+export class MadButtonGroupComponent {}

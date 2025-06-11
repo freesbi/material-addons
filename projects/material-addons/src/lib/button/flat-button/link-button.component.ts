@@ -1,25 +1,14 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { MadBasicButton } from '../mad-basic-button';
+import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'mad-link-button',
   templateUrl: './link-button.component.html',
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, MatTooltip],
 })
-export class LinkButtonComponent extends MadBasicButton {
-  @Input()
-  type: string;
-
-  @Input()
-  disabled: boolean;
-
-  @Input()
-  title = '';
-
-  @ViewChild('btn', { read: ElementRef, static: true }) button: ElementRef;
-
-  constructor() {
-    super();
-  }
+export class LinkButtonComponent {
+  type = input<HTMLButtonElement['type']>();
+  disabled = input<boolean>();
+  title = input<string>();
 }
