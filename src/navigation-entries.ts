@@ -44,6 +44,13 @@ export class NavigationEntries {
           route: '/documentation/sidebar-page-layout',
           roles: ['TEST3'],
         },
+        {
+          name: 'colors layout',
+          i18n: 'layouts.demos.colors-layout',
+          matIcon: 'insert_drive_file',
+          route: '/documentation/colors-layout',
+          roles: ['TEST3'],
+        },
       ],
     },
     {

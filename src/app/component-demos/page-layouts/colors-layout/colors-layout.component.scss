@@ -1,0 +1,144 @@
+//.status-colors {
+//  max-width: 1100px;
+//  margin: 2rem auto;
+//  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+//  color: #444;
+//}
+
+.intro {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.6rem;
+  margin: 0.5rem 0 0.75rem;
+  font-weight: 500;
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 4rem;
+  row-gap: 3rem;
+  margin-top: 2rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.group-title {
+  font-size: 1.05rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+}
+
+.variant-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.swatch {
+  width: 96px;
+  height: 40px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  margin-right: 1.25rem;
+}
+
+.variant-label {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* --- colors (approximate) --- */
+
+.bg-primary {
+  background: var(--main-primary);
+}
+.bg-primary-shade {
+  background: #187d8c;
+}
+.bg-primary-tint {
+  background: #e2f5f7;
+}
+
+.bg-info {
+  background: #005a8c;
+}
+.bg-info-shade {
+  background: #00466b;
+}
+.bg-info-tint {
+  background: #e0f2fb;
+}
+
+.bg-success {
+  background: #2d7c24;
+}
+.bg-success-shade {
+  background: #21601a;
+}
+.bg-success-tint {
+  background: #e4f6dd;
+}
+
+.bg-warning {
+  background: #d49537;
+}
+.bg-warning-shade {
+  background: #b6752c;
+}
+.bg-warning-dark {
+  background: #8c5b20;
+}
+.bg-warning-tint {
+  background: #fff5cf;
+}
+
+.bg-danger {
+  background: #b52212;
+}
+.bg-danger-shade {
+  background: #8f1a0e;
+}
+.bg-danger-dark {
+  background: #651109;
+}
+
+.bg-neutral {
+  background: #4b575f;
+}
+.bg-neutral-shade {
+  background: #394249;
+}
+.bg-neutral-tint {
+  background: #eef3f6;
+}
+
+.bg-alt {
+  background: #7a1fb8;
+}
+.bg-alt-shade {
+  background: #5f1891;
+}
+.bg-alt-tint {
+  background: #f5e0ff;
+}
+
+.bg-disabled {
+  background: #a6b0b8;
+}
+.bg-disabled-shade {
+  background: #7e8790;
+}
+.bg-disabled-tint {
+  background: #d9dfe3;
+}
