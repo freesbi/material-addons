@@ -1,36 +1,95 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-$primary-palette: undefined;
-$accent-palette: undefined;
-$warn-palette: undefined;
-$default-palette: undefined;
-$is-dark-theme: undefined;
+$primary-palette: null;
+$warn-palette: null;
+$default-palette: null;
 
-$typography: mat.m2-define-typography-config(
-  $font-family: 'Roboto, sans-serif',
+// Maps the legacy Material 2 palette stops to the corresponding Material 3 tonal values.
+$legacy-tones-to-m3-tones: (
+  0: 900,
+  10: 900,
+  20: 800,
+  25: 800,
+  30: 700,
+  35: 700,
+  40: 600,
+  50: 500,
+  60: 400,
+  70: 300,
+  80: 200,
+  90: 100,
+  95: 50,
+  98: 50,
+  99: 50,
+  100: 50,
 );
 
-@function build-custom-theme($theme-name, $primary-palette, $default-colors, $warn-palette: mat.$m2-red-palette) {
-  $material-addons-colors-primary: mat.m2-define-palette($primary-palette);
-  $material-addons-colors-warn: mat.m2-define-palette($warn-palette);
-  $material-addons-theme: mat.m2-define-light-theme(
+@function legacy-tones-to-m3($legacy-palette, $reference-palette) {
+  $mapped: $reference-palette;
+
+  @each $tone, $legacy-key in $legacy-tones-to-m3-tones {
+    $legacy-value: map.get($legacy-palette, $legacy-key);
+    @if $legacy-value != null {
+      $mapped: map.set($mapped, $tone, $legacy-value);
+    }
+  }
+
+  @return $mapped;
+}
+
+@function legacy-palette-to-m3($legacy-palette, $reference-palette) {
+  $palette: legacy-tones-to-m3($legacy-palette, $reference-palette);
+
+  @if map.has-key($reference-palette, error) {
+    $error-reference: map.get($reference-palette, error);
+    $palette: map.set(
+      $palette,
+      error,
+      legacy-tones-to-m3($legacy-palette, $error-reference)
+    );
+  }
+
+  @return $palette;
+}
+
+$typography: (
+  plain-family: 'Roboto, sans-serif',
+  brand-family: 'Roboto, sans-serif',
+  regular-weight: 400,
+  medium-weight: 500,
+  bold-weight: 700,
+);
+
+@function build-custom-theme(
+  $theme-name,
+  $primary-palette,
+  $default-colors,
+  $warn-palette: mat.$m2-red-palette,
+  $primary-reference: mat.$blue-palette,
+  $warn-reference: mat.$red-palette
+) {
+  $material-addons-colors-primary: legacy-palette-to-m3($primary-palette, $primary-reference);
+  $material-addons-colors-warn: legacy-palette-to-m3($warn-palette, $warn-reference);
+  $material-addons-primary-with-error: map.set(
+    $material-addons-colors-primary,
+    error,
+    map.get($material-addons-colors-warn, error)
+  );
+  $material-addons-theme: mat.define-theme(
     (
       color: (
-        primary: $material-addons-colors-primary,
-        accent: $material-addons-colors-primary,
-        warn: $material-addons-colors-warn,
+        theme-type: light,
+        primary: $material-addons-primary-with-error,
+        tertiary: $material-addons-primary-with-error,
       ),
       typography: $typography,
     )
   );
 
-  $color-config: mat.m2-get-color-config($material-addons-theme);
-  $primary-palette: map.get($color-config, 'primary') !global;
-  $accent-palette: map.get($color-config, 'accent') !global;
-  $warn-palette: map.get($color-config, 'warn') !global;
+  $primary-palette: $primary-palette !global;
+  $warn-palette: $warn-palette !global;
   $default-palette: $default-colors !global;
-  $is-dark-theme: map.get($color-config, 'is-dark') !global;
 
   @return $material-addons-theme;
 }
